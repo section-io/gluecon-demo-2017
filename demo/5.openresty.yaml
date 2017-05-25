@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: openresty
+  labels:
+    app: openresty
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: openresty
+    spec:
+      containers:
+      - image: openresty/openresty
+        name: openresty
+        env:
+        volumeMounts:
+        - name: config
+          mountPath: /usr/local/openresty/nginx/conf
+      volumes:
+        - name: config
+          configMap:
+            name: openresty-conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openresty-upstream
+  labels:
+    app: openresty-upstream
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: egress 
