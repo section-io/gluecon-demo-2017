@@ -1,3 +1,7 @@
+# Slides
+
+https://www.slideshare.net/section_io/kubernetes-in-the-wild
+
 # Prepare
 
 ```
